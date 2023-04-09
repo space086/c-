@@ -1,20 +1,14 @@
 #include <stdio.h>
 
 #define PI 3.1415
-#define BUFFER_SIZE 1024
+#define SIZE (R) (PI * (R) * (R))
 
 int main(void) {
-
-
-  const int WIDTH = 100;
-  const int HEIGHT = 150;
-
-  double input;
+  float radius;
 
   printf("원의 반지름을 입력하세요");
-  scanf_s("%lf", &input);
+  scanf_s("%f", &radius);
 
-  input = input*input*PI;
-  printf("원의 넓이는 %f입니다. \n", input);
+  printf("원의 넓이는 %f입니다. \n", AREA(radius));
   return 0;
 }
