@@ -17,8 +17,8 @@ int main(void) {
   case 3: printf("3번 \n\n\n");
     break;
   
-  // default:
-  //   break;
+  default: printf("1~3까지만 입력해주세요. \n\n\n");
+    // break;
   }
   return 0;
 }
