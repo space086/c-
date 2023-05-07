@@ -3,22 +3,18 @@
 #include <stdio.h>
 
 int main(void) {
-  int n = 2; // 변수 선언
-
-  printf("정수 입력 (1~3) : ");
-  scanf("", &n);
-
-  switch (n)
+  int sum;
+  int j = 1;
+  sum = 0;
+  do {
+    sum = sum + j;
+    j++;
+  }while (j < 5);
   {
-  case 1: printf("1번 \n\n\n");
-    break;
-  case 2: printf("2번 \n\n\n");
-    break;
-  case 3: printf("3번 \n\n\n");
-    break;
-  
-  default: printf("1~3까지만 입력해주세요. \n\n\n");
-    // break;
+    /* code */
+    printf("%d\n", sum);
   }
+  
+  
   return 0;
 }
