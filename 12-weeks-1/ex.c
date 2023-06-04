@@ -4,20 +4,20 @@
 // 다항식의 항을 표현하는 구조체
 typedef struct Node {
     int coefficient;   // 계수
-    int exponent;      // 차수
+    int degree;      // 차수
     struct Node* next; // 다음 항의 포인터
 } Node;
 
 // 다항식의 연결형 자료구조를 초기화하는 함수
-void initializePolynomial(Node** polynomial) {
+void initCalcul(Node** polynomial) {
     *polynomial = NULL;
 }
 
 // 다항식에 항을 추가하는 함수
-void addTerm(Node** polynomial, int coefficient, int exponent) {
+void addTerm(Node** polynomial, int coefficient, int degree) {
     Node* newTerm = (Node*)malloc(sizeof(Node));
     newTerm->coefficient = coefficient;
-    newTerm->exponent = exponent;
+    newTerm->degree = degree;
     newTerm->next = NULL;
 
     if (*polynomial == NULL) {
@@ -36,7 +36,7 @@ void printPolynomial(Node* polynomial) {
     Node* current = polynomial;
 
     while (current != NULL) {
-        printf("%dx^%d ", current->coefficient, current->exponent);
+        printf("%dx^%d ", current->coefficient, current->degree);
         if (current->next != NULL) {
             printf("+ ");
         }
@@ -53,16 +53,16 @@ Node* addPolynomials(Node* polynomial1, Node* polynomial2) {
     Node* current2 = polynomial2;
 
     while (current1 != NULL && current2 != NULL) {
-        if (current1->exponent > current2->exponent) {
-            addTerm(&result, current1->coefficient, current1->exponent);
+        if (current1->degree > current2->degree) {
+            addTerm(&result, current1->coefficient, current1->degree);
             current1 = current1->next;
-        } else if (current1->exponent < current2->exponent) {
-            addTerm(&result, current2->coefficient, current2->exponent);
+        } else if (current1->degree < current2->degree) {
+            addTerm(&result, current2->coefficient, current2->degree);
             current2 = current2->next;
         } else {
             int sum = current1->coefficient + current2->coefficient;
             if (sum != 0) {
-                addTerm(&result, sum, current1->exponent);
+                addTerm(&result, sum, current1->degree);
             }
             current1 = current1->next;
             current2 = current2->next;
@@ -71,11 +71,11 @@ Node* addPolynomials(Node* polynomial1, Node* polynomial2) {
 
     // 남은 항들을 추가
     while (current1 != NULL) {
-        addTerm(&result, current1->coefficient, current1->exponent);
+        addTerm(&result, current1->coefficient, current1->degree);
         current1 = current1->next;
     }
     while (current2 != NULL) {
-        addTerm(&result, current2->coefficient, current2->exponent);
+        addTerm(&result, current2->coefficient, current2->degree);
         current2 = current2->next;
     }
 
@@ -91,8 +91,8 @@ Node* multiplyPolynomials(Node* polynomial1, Node* polynomial2) {
         Node* current2 = polynomial2;
         while (current2 != NULL) {
             int coefficient = current1->coefficient * current2->coefficient;
-            int exponent = current1->exponent + current2->exponent;
-            addTerm(&result, coefficient, exponent);
+            int degree = current1->degree + current2->degree;
+            addTerm(&result, coefficient, degree);
             current2 = current2->next;
         }
         current1 = current1->next;
@@ -107,10 +107,10 @@ int main() {
     Node* sum;
     Node* product;
 
-    initializePolynomial(&polynomial1);
-    initializePolynomial(&polynomial2);
-    initializePolynomial(&sum);
-    initializePolynomial(&product);
+    initCalcul(&polynomial1);
+    initCalcul(&polynomial2);
+    initCalcul(&sum);
+    initCalcul(&product);
 
     // 첫 번째 다항식 입력 받기
     printf("첫 번째 다항식의 항 개수: ");
@@ -119,9 +119,9 @@ int main() {
 
     printf("첫 번째 다항식의 항 (계수 차수): \n");
     for (int i = 0; i < termCount1; i++) {
-        int coefficient, exponent;
-        scanf("%d %d", &coefficient, &exponent);
-        addTerm(&polynomial1, coefficient, exponent);
+        int coefficient, degree;
+        scanf("%d %d", &coefficient, &degree);
+        addTerm(&polynomial1, coefficient, degree);
     }
 
     // 두 번째 다항식 입력 받기
@@ -131,9 +131,9 @@ int main() {
 
     printf("두 번째 다항식의 항 (계수 차수): \n");
     for (int i = 0; i < termCount2; i++) {
-        int coefficient, exponent;
-        scanf("%d %d", &coefficient, &exponent);
-        addTerm(&polynomial2, coefficient, exponent);
+        int coefficient, degree;
+        scanf("%d %d", &coefficient, &degree);
+        addTerm(&polynomial2, coefficient, degree);
     }
 
     printf("첫 번째 다항식: ");
